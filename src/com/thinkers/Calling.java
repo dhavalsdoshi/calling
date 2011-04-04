@@ -27,10 +27,11 @@ public class Calling extends Activity implements TextToSpeech.OnInitListener {
             public void onReceive(Context context, Intent intent) {
                 Bundle bundle = intent.getExtras();
                 String phoneNr = bundle.getString("incoming_number");
-                if(phoneNr!=null){
+                String callState = bundle.getString("state");
+                if((phoneNr!=null) && callState.equals("RINGING")){
                     Log.v(TAG, "Before reading out loud");
                     Log.v(TAG, "phoneNr: " + phoneNr);
-                    saySomething("Getting call from "+ phoneNr);
+                    say("Call from"+ phoneNr + " Call from"+ phoneNr);
                 }
             }
         };
@@ -49,7 +50,7 @@ public class Calling extends Activity implements TextToSpeech.OnInitListener {
         }
     }
 
-    public void saySomething(String str) {
+    public void say(String str) {
         mTts.speak(str,TextToSpeech.QUEUE_FLUSH,null);
     }
 
